@@ -1,5 +1,5 @@
 <p align="center">
-  <!-- Insert game logo or title screen here -->
+  <img width="2430" height="1604" alt="image" src="https://github.com/user-attachments/assets/f105dfc8-46b7-4696-bb84-b7bd14e718d5" />
 </p>
 
 ![GitHub Created At](https://img.shields.io/github/created-at/pablolird/Tower-of-the-Forest)
