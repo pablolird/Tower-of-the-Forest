@@ -315,7 +315,7 @@ void Scene_Play::sRender() {
 
 		// Sort the vector based on the Y component of the CTransform component
 		std::sort(defenses.begin(), defenses.end(), [](const auto& lhs, const auto& rhs) {
-			return lhs->getComponent<CTransform>().pos.y < rhs->getComponent<CTransform>().pos.y;
+			return lhs->template getComponent<CTransform>().pos.y < rhs->template getComponent<CTransform>().pos.y;
 			});
 
 		// Accessing the sorted vector

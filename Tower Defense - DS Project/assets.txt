@@ -1,118 +1,118 @@
-Font RETROGAMING Assets\Fonts\Ac437_IBM_VGA_9x16-2x.ttf
+Font RETROGAMING Assets/Fonts/Ac437_IBM_VGA_9x16-2x.ttf
 
 ------------------------- TEXTURES -------------------------
 =================TILES=================
-Texture tile01 Assets\Tiles\FieldsTile_02.png
-Texture tile02 Assets\Tiles\FieldsTile_03.png
-Texture tile03 Assets\Tiles\FieldsTile_04.png
-Texture tile04 Assets\Tiles\FieldsTile_34.png
-Texture tile05 Assets\Tiles\FieldsTile_35.png
-Texture tile06 Assets\Tiles\FieldsTile_36.png
-Texture tile07 Assets\Tiles\FieldsTile_17.png
-Texture tile08 Assets\Tiles\FieldsTile_21.png
+Texture tile01 Assets/Tiles/FieldsTile_02.png
+Texture tile02 Assets/Tiles/FieldsTile_03.png
+Texture tile03 Assets/Tiles/FieldsTile_04.png
+Texture tile04 Assets/Tiles/FieldsTile_34.png
+Texture tile05 Assets/Tiles/FieldsTile_35.png
+Texture tile06 Assets/Tiles/FieldsTile_36.png
+Texture tile07 Assets/Tiles/FieldsTile_17.png
+Texture tile08 Assets/Tiles/FieldsTile_21.png
 =================TOWER=================
-Texture tower1 Assets\Tower\Idle\1.png
-Texture tower2 Assets\Tower\Idle\2.png
-Texture tower3 Assets\Tower\Idle\3.png
-Texture tower4 Assets\Tower\Idle\4.png
+Texture tower1 Assets/Tower/Idle/1.png
+Texture tower2 Assets/Tower/Idle/2.png
+Texture tower3 Assets/Tower/Idle/3.png
+Texture tower4 Assets/Tower/Idle/4.png
 =================TOWER UPGRADE=================
-Texture towerUp1 Assets\Tower\Upgrade\1.png
-Texture towerUp2 Assets\Tower\Upgrade\2.png
-Texture towerUp3 Assets\Tower\Upgrade\3.png
+Texture towerUp1 Assets/Tower/Upgrade/1.png
+Texture towerUp2 Assets/Tower/Upgrade/2.png
+Texture towerUp3 Assets/Tower/Upgrade/3.png
 =================GOBLIN=================
-Texture D_goblinAttack Assets\Enemies\Goblin\D_Attack.png
-Texture D_goblinDeath Assets\Enemies\Goblin\D_Death.png
-Texture D_goblinWalk Assets\Enemies\Goblin\D_Walk.png
-Texture S_goblinAttack Assets\Enemies\Goblin\S_Attack.png
-Texture S_goblinDeath Assets\Enemies\Goblin\S_Death.png
-Texture S_goblinWalk Assets\Enemies\Goblin\S_Walk.png
+Texture D_goblinAttack Assets/Enemies/Goblin/D_Attack.png
+Texture D_goblinDeath Assets/Enemies/Goblin/D_Death.png
+Texture D_goblinWalk Assets/Enemies/Goblin/D_Walk.png
+Texture S_goblinAttack Assets/Enemies/Goblin/S_Attack.png
+Texture S_goblinDeath Assets/Enemies/Goblin/S_Death.png
+Texture S_goblinWalk Assets/Enemies/Goblin/S_Walk.png
 =================WOLF=================
-Texture D_wolfAttack Assets\Enemies\Wolf\D_Attack.png
-Texture D_wolfDeath Assets\Enemies\Wolf\D_Death.png
-Texture D_wolfWalk Assets\Enemies\Wolf\D_Walk.png
-Texture S_wolfAttack Assets\Enemies\Wolf\S_Attack.png
-Texture S_wolfDeath Assets\Enemies\Wolf\S_Death.png
-Texture S_wolfWalk Assets\Enemies\Wolf\S_Walk.png
+Texture D_wolfAttack Assets/Enemies/Wolf/D_Attack.png
+Texture D_wolfDeath Assets/Enemies/Wolf/D_Death.png
+Texture D_wolfWalk Assets/Enemies/Wolf/D_Walk.png
+Texture S_wolfAttack Assets/Enemies/Wolf/S_Attack.png
+Texture S_wolfDeath Assets/Enemies/Wolf/S_Death.png
+Texture S_wolfWalk Assets/Enemies/Wolf/S_Walk.png
 =================BEE=================
-Texture D_BeeWalk Assets\Enemies\Bee\D_Walk.png
-Texture D_BeeDeath Assets\Enemies\Bee\D_Death.png
-Texture S_BeeWalk Assets\Enemies\Bee\S_Walk.png
-Texture S_BeeDeath Assets\Enemies\Bee\S_Death.png
+Texture D_BeeWalk Assets/Enemies/Bee/D_Walk.png
+Texture D_BeeDeath Assets/Enemies/Bee/D_Death.png
+Texture S_BeeWalk Assets/Enemies/Bee/S_Walk.png
+Texture S_BeeDeath Assets/Enemies/Bee/S_Death.png
 =================BEE=================
-Texture D_slimeWalk Assets\Enemies\Slime\D_Walk.png
-Texture D_slimeDeath Assets\Enemies\Slime\D_Death.png
-Texture S_slimeWalk Assets\Enemies\Slime\S_Walk.png
-Texture S_slimeDeath Assets\Enemies\Slime\S_Death.png
+Texture D_slimeWalk Assets/Enemies/Slime/D_Walk.png
+Texture D_slimeDeath Assets/Enemies/Slime/D_Death.png
+Texture S_slimeWalk Assets/Enemies/Slime/S_Walk.png
+Texture S_slimeDeath Assets/Enemies/Slime/S_Death.png
 
 
-Texture constructionTower Assets\Attack\ArcherTower\constructionTower.png
-Texture clouds Assets\clouds.png
+Texture constructionTower Assets/Attack/ArcherTower/constructionTower.png
+Texture clouds Assets/clouds.png
 
 =================TARGET TOWER===============
-Texture targetTower2 Assets\Attack\ArcherTower\TargetTower\Idle\2.png
-Texture targetTower3 Assets\Attack\ArcherTower\TargetTower\Idle\3.png
-Texture targetTower4 Assets\Attack\ArcherTower\TargetTower\Idle\4.png
-Texture upgradeTargetTower1 Assets\Attack\ArcherTower\TargetTower\Upgrade\1.png
-Texture upgradeTargetTower2 Assets\Attack\ArcherTower\TargetTower\Upgrade\2.png
-Texture upgradeTargetTower3 Assets\Attack\ArcherTower\TargetTower\Upgrade\3.png
-Texture D_archerTargetIdle Assets\Attack\ArcherTower\TargetTower\Archer\D_Idle.png
-Texture D_archerTargetIdle Assets\Attack\ArcherTower\TargetTower\Archer\S_Idle.png
-Texture D_archerTargetAttack Assets\Attack\ArcherTower\TargetTower\Archer\D_Attack.png
-Texture S_archerTargetAttack Assets\Attack\ArcherTower\TargetTower\Archer\S_Attack.png
+Texture targetTower2 Assets/Attack/ArcherTower/TargetTower/Idle/2.png
+Texture targetTower3 Assets/Attack/ArcherTower/TargetTower/Idle/3.png
+Texture targetTower4 Assets/Attack/ArcherTower/TargetTower/Idle/4.png
+Texture upgradeTargetTower1 Assets/Attack/ArcherTower/TargetTower/Upgrade/1.png
+Texture upgradeTargetTower2 Assets/Attack/ArcherTower/TargetTower/Upgrade/2.png
+Texture upgradeTargetTower3 Assets/Attack/ArcherTower/TargetTower/Upgrade/3.png
+Texture D_archerTargetIdle Assets/Attack/ArcherTower/TargetTower/Archer/D_Idle.png
+Texture D_archerTargetIdle Assets/Attack/ArcherTower/TargetTower/Archer/S_Idle.png
+Texture D_archerTargetAttack Assets/Attack/ArcherTower/TargetTower/Archer/D_Attack.png
+Texture S_archerTargetAttack Assets/Attack/ArcherTower/TargetTower/Archer/S_Attack.png
 =================AREA TOWER===============
-Texture areaTower2 Assets\Attack\ArcherTower\AreaTower\Idle\2.png
-Texture areaTower3 Assets\Attack\ArcherTower\AreaTower\Idle\3.png
-Texture areaTower4 Assets\Attack\ArcherTower\AreaTower\Idle\4.png
-Texture upgradeAreaTower1 Assets\Attack\ArcherTower\AreaTower\Upgrade\1.png
-Texture upgradeAreaTower2 Assets\Attack\ArcherTower\AreaTower\Upgrade\2.png
-Texture upgradeAreaTower3 Assets\Attack\ArcherTower\AreaTower\Upgrade\3.png
-Texture D_archerAreaIdle Assets\Attack\ArcherTower\AreaTower\Archer\D_Idle.png
-Texture D_archerAreaIdle Assets\Attack\ArcherTower\AreaTower\Archer\S_Idle.png
-Texture D_archerAreaAttack Assets\Attack\ArcherTower\AreaTower\Archer\D_Attack.png
-Texture S_archerAreaAttack Assets\Attack\ArcherTower\AreaTower\Archer\S_Attack.png
+Texture areaTower2 Assets/Attack/ArcherTower/AreaTower/Idle/2.png
+Texture areaTower3 Assets/Attack/ArcherTower/AreaTower/Idle/3.png
+Texture areaTower4 Assets/Attack/ArcherTower/AreaTower/Idle/4.png
+Texture upgradeAreaTower1 Assets/Attack/ArcherTower/AreaTower/Upgrade/1.png
+Texture upgradeAreaTower2 Assets/Attack/ArcherTower/AreaTower/Upgrade/2.png
+Texture upgradeAreaTower3 Assets/Attack/ArcherTower/AreaTower/Upgrade/3.png
+Texture D_archerAreaIdle Assets/Attack/ArcherTower/AreaTower/Archer/D_Idle.png
+Texture D_archerAreaIdle Assets/Attack/ArcherTower/AreaTower/Archer/S_Idle.png
+Texture D_archerAreaAttack Assets/Attack/ArcherTower/AreaTower/Archer/D_Attack.png
+Texture S_archerAreaAttack Assets/Attack/ArcherTower/AreaTower/Archer/S_Attack.png
 =================FREEZE TOWER===============
-Texture freezeTower2 Assets\Attack\ArcherTower\FreezeTower\Idle\2.png
-Texture freezeTower3 Assets\Attack\ArcherTower\FreezeTower\Idle\3.png
-Texture freezeTower4 Assets\Attack\ArcherTower\FreezeTower\Idle\4.png
-Texture upgradeFreezeTower1 Assets\Attack\ArcherTower\FreezeTower\Upgrade\1.png
-Texture upgradeFreezeTower2 Assets\Attack\ArcherTower\FreezeTower\Upgrade\2.png
-Texture upgradeFreezeTower3 Assets\Attack\ArcherTower\FreezeTower\Upgrade\3.png
-Texture D_archerFreezeIdle Assets\Attack\ArcherTower\FreezeTower\Archer\D_Idle.png
-Texture D_archerFreezeIdle Assets\Attack\ArcherTower\FreezeTower\Archer\S_Idle.png
-Texture D_archerFreezeAttack Assets\Attack\ArcherTower\FreezeTower\Archer\D_Attack.png
-Texture S_archerFreezeAttack Assets\Attack\ArcherTower\FreezeTower\Archer\S_Attack.png
+Texture freezeTower2 Assets/Attack/ArcherTower/FreezeTower/Idle/2.png
+Texture freezeTower3 Assets/Attack/ArcherTower/FreezeTower/Idle/3.png
+Texture freezeTower4 Assets/Attack/ArcherTower/FreezeTower/Idle/4.png
+Texture upgradeFreezeTower1 Assets/Attack/ArcherTower/FreezeTower/Upgrade/1.png
+Texture upgradeFreezeTower2 Assets/Attack/ArcherTower/FreezeTower/Upgrade/2.png
+Texture upgradeFreezeTower3 Assets/Attack/ArcherTower/FreezeTower/Upgrade/3.png
+Texture D_archerFreezeIdle Assets/Attack/ArcherTower/FreezeTower/Archer/D_Idle.png
+Texture D_archerFreezeIdle Assets/Attack/ArcherTower/FreezeTower/Archer/S_Idle.png
+Texture D_archerFreezeAttack Assets/Attack/ArcherTower/FreezeTower/Archer/D_Attack.png
+Texture S_archerFreezeAttack Assets/Attack/ArcherTower/FreezeTower/Archer/S_Attack.png
 =================BARRICADE===============
-Texture S_barricadeBuild Assets\Defense\Barricades\S_Build.png
-Texture U_barricadeBuild Assets\Defense\Barricades\U_Build.png
-Texture S_barricadeDestroy Assets\Defense\Barricades\S_Destroy.png 
-Texture U_barricadeDestroy Assets\Defense\Barricades\U_Destroy.png
-Texture S_barricadeIdle Assets\Defense\Barricades\S_idle.png
-Texture U_barricadeIdle Assets\Defense\Barricades\U_idle.png
+Texture S_barricadeBuild Assets/Defense/Barricades/S_Build.png
+Texture U_barricadeBuild Assets/Defense/Barricades/U_Build.png
+Texture S_barricadeDestroy Assets/Defense/Barricades/S_Destroy.png 
+Texture U_barricadeDestroy Assets/Defense/Barricades/U_Destroy.png
+Texture S_barricadeIdle Assets/Defense/Barricades/S_idle.png
+Texture U_barricadeIdle Assets/Defense/Barricades/U_idle.png
 
 
-Texture lightning Assets\Attack\Lightning\4.png
-Texture iceSpike Assets\Attack\Spikes\4.png
-Texture woodSpikes Assets\Attack\Spikes\2.png
+Texture lightning Assets/Attack/Lightning/4.png
+Texture iceSpike Assets/Attack/Spikes/4.png
+Texture woodSpikes Assets/Attack/Spikes/2.png
 
-Texture shopAreaTower Assets\Shop\shopArea.png
-Texture shopFreezeTower Assets\Shop\shopFreeze.png
-Texture shopTargetTower Assets\Shop\shopTarget.png
-Texture lightningShop Assets\Shop\Lightning_shop.png
+Texture shopAreaTower Assets/Shop/shopArea.png
+Texture shopFreezeTower Assets/Shop/shopFreeze.png
+Texture shopTargetTower Assets/Shop/shopTarget.png
+Texture lightningShop Assets/Shop/Lightning_shop.png
 
 
-Texture background Assets\background.png
-Texture backgroundMenu Assets\MenuBackground.png
-Texture backgroundSettings Assets\SettingsBackground.png
-Texture backgroundPause Assets\pauseBackground.png
+Texture background Assets/background.png
+Texture backgroundMenu Assets/MenuBackground.png
+Texture backgroundSettings Assets/SettingsBackground.png
+Texture backgroundPause Assets/pauseBackground.png
 
-Texture tuto1 Assets\Tutorial\tuto1.png
-Texture tuto2 Assets\Tutorial\tuto2.png
-Texture tuto3 Assets\Tutorial\tuto3.png
-Texture tuto4 Assets\Tutorial\tuto4.png
-Texture tuto5 Assets\Tutorial\tuto5.png
-Texture tuto6 Assets\Tutorial\tuto6.png
-Texture tuto7 Assets\Tutorial\tuto7.png
-Texture tuto8 Assets\Tutorial\tuto8.png
+Texture tuto1 Assets/Tutorial/tuto1.png
+Texture tuto2 Assets/Tutorial/tuto2.png
+Texture tuto3 Assets/Tutorial/tuto3.png
+Texture tuto4 Assets/Tutorial/tuto4.png
+Texture tuto5 Assets/Tutorial/tuto5.png
+Texture tuto6 Assets/Tutorial/tuto6.png
+Texture tuto7 Assets/Tutorial/tuto7.png
+Texture tuto8 Assets/Tutorial/tuto8.png
 
 
 ------------------------- ANIMATIONS -------------------------
@@ -237,10 +237,10 @@ Animation tuto8 tuto8 1 0
 
 ------------------------- MUSICS -------------------------
 
-Music menu Assets\Musics\TheCastleWalls.ogg
-Music play Assets\Musics\surviveTHEHORDE.ogg
+Music menu Assets/Musics/TheCastleWalls.ogg
+Music play Assets/Musics/surviveTHEHORDE.ogg
 
 ------------------------SOUND EFFECTS -------------------------
 
-SoundEffects clickSound Assets\SoundEffects\click1.ogg
-SoundEffects enterSound Assets\SoundEffects\enterSound.ogg
+SoundEffects clickSound Assets/SoundEffects/click1.ogg
+SoundEffects enterSound Assets/SoundEffects/enterSound.ogg

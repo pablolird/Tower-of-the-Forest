@@ -21,18 +21,18 @@
 
 ## 🌟 Features
 
-- **Multiple Tower Types**: Place and upgrade three distinct towers — Target, Area, and Freeze — each with unique attack styles and upgrade paths.
-- **Special Attacks**: Deploy powerful limited-use attacks like Lightning Strikes and Ice/Wood Spikes to turn the tide.
-- **Barricades**: Place defensive structures to block and slow down enemy advances.
-- **Enemy Variety**: Face four enemy types — Goblins, Wolves, Bees, and Slimes — each with their own animations and behavior.
-- **Day/Night Cycle**: A dynamic lighting system shifts the atmosphere as waves progress.
-- **Shop System**: Spend coins earned from defeating enemies to purchase towers and upgrades.
-- **Upgrade System**: Evolve your towers through multiple upgrade levels to boost their effectiveness.
-- **Tutorial**: An in-game multi-slide tutorial to get new players up to speed.
-- **Settings & Credits**: Dedicated scenes for audio settings and team credits.
-- **Sound Design**: Background music and sound effects for menus, gameplay, and interactions.
-- **Entity-Component-System Architecture**: Clean, data-driven ECS design powering all game entities.
-- **Quadtree Collision Detection**: Optimized spatial partitioning for efficient collision checks.
+* **Multiple Tower Types**: Place and upgrade three distinct towers — Target, Area, and Freeze — each with unique attack styles and upgrade paths.
+* **Special Attacks**: Deploy powerful limited-use attacks like Lightning Strikes and Ice/Wood Spikes to turn the tide.
+* **Barricades**: Place defensive structures to block and slow down enemy advances.
+* **Enemy Variety**: Face four enemy types — Goblins, Wolves, Bees, and Slimes — each with their own animations and behavior.
+* **Day/Night Cycle**: A dynamic lighting system shifts the atmosphere as waves progress.
+* **Shop System**: Spend coins earned from defeating enemies to purchase towers and upgrades.
+* **Upgrade System**: Evolve your towers through multiple upgrade levels to boost their effectiveness.
+* **Tutorial**: An in-game multi-slide tutorial to get new players up to speed.
+* **Settings & Credits**: Dedicated scenes for audio settings and team credits.
+* **Sound Design**: Background music and sound effects for menus, gameplay, and interactions.
+* **Entity-Component-System Architecture**: Clean, data-driven ECS design powering all game entities.
+* **Quadtree Collision Detection**: Optimized spatial partitioning for efficient collision checks.
 
 ---
 
@@ -58,33 +58,33 @@
 
 ## 🧟 Enemy Types
 
-| Enemy  | Movement | Notes                     |
-| ------ | -------- | ------------------------- |
-| Goblin | Walking  | Basic melee attacker      |
-| Wolf   | Walking  | Fast and aggressive       |
-| Bee    | Flying   | Bypasses ground obstacles |
-| Slime  | Walking  | Slow but resilient        |
+| Enemy  | Movement | Notes                        |
+|--------|----------|------------------------------|
+| Goblin | Walking  | Basic melee attacker         |
+| Wolf   | Walking  | Fast and aggressive          |
+| Bee    | Flying   | Bypasses ground obstacles    |
+| Slime  | Walking  | Slow but resilient           |
 
 ---
 
 ## 🏰 Tower Types
 
-| Tower        | Attack Style         | Upgrade Levels |
-| ------------ | -------------------- | -------------- |
-| Target Tower | Single-target archer | Up to 4        |
-| Area Tower   | Multi-target archer  | Up to 4        |
-| Freeze Tower | Slows enemies        | Up to 4        |
+| Tower         | Attack Style | Upgrade Levels |
+|---------------|--------------|----------------|
+| Target Tower  | Single-target archer | Up to 4 |
+| Area Tower    | Multi-target archer  | Up to 4 |
+| Freeze Tower  | Slows enemies        | Up to 4 |
 
 ---
 
 ## 🛠️ Technologies Used
 
-- **Language**: C++
-- **Graphics & Windowing**: SFML (Simple and Fast Multimedia Library)
-- **IDE**: Visual Studio
-- **Architecture**: Entity-Component-System (ECS)
-- **Collision**: Quadtree spatial partitioning
-- **Asset Loading**: Custom `assets.txt` manifest
+* **Language**: C++
+* **Graphics & Windowing**: SFML (Simple and Fast Multimedia Library)
+* **IDE**: Visual Studio
+* **Architecture**: Entity-Component-System (ECS)
+* **Collision**: Quadtree spatial partitioning
+* **Asset Loading**: Custom `assets.txt` manifest
 
 ---
 
@@ -135,26 +135,25 @@ Tower-of-the-Forest/
 
 ### Prerequisites
 
-- [SFML 2.x](https://www.sfml-dev.org/download.php) installed and linked
-- Visual Studio (Windows) or a C++17-compatible compiler with SFML configured
+* [SFML 2.x](https://www.sfml-dev.org/download.php) installed and linked
+* Visual Studio (Windows) or a C++17-compatible compiler with SFML configured
 
 ### Steps
 
 1. **Clone the Repository:**
-
    ```bash
    git clone https://github.com/pablolird/Tower-of-the-Forest.git
    cd Tower-of-the-Forest
    ```
 
 2. **Open the Project:**
-   - Open `Tower Defense - DS Project.vcxproj` in Visual Studio.
-   - Ensure SFML include and library paths are configured in the project properties.
+   * Open `Tower Defense - DS Project.vcxproj` in Visual Studio.
+   * Ensure SFML include and library paths are configured in the project properties.
 
 3. **Build and Run:**
-   - Set the build configuration to **Release** or **Debug**.
-   - Build the solution (`Ctrl+Shift+B`) and run (`F5`).
-   - The executable will look for `assets.txt` in the working directory to load all game assets.
+   * Set the build configuration to **Release** or **Debug**.
+   * Build the solution (`Ctrl+Shift+B`) and run (`F5`).
+   * The executable will look for `assets.txt` in the working directory to load all game assets.
 
 ---
 
@@ -162,18 +161,18 @@ Tower-of-the-Forest/
 
 ### Controls
 
-| Action          | Key / Input            |
-| --------------- | ---------------------- |
-| Navigate Menu   | `W` / `S` or `↑` / `↓` |
-| Confirm / Enter | `Enter`                |
-| Place / Select  | Left Click             |
-| Cancel / Back   | Right Click / `Esc`    |
-| Pause           | `P`                    |
-| Restart         | `R`                    |
-| Next (Tutorial) | `N`                    |
-| Toggle Textures | `T`                    |
-| Toggle Hitboxes | `C`                    |
-| Toggle Info     | `H`                    |
+| Action             | Key / Input         |
+|--------------------|---------------------|
+| Navigate Menu      | `W` / `S` or `↑` / `↓` |
+| Confirm / Enter    | `Enter`             |
+| Place / Select     | Left Click          |
+| Cancel / Back      | Right Click / `Esc` |
+| Pause              | `P`                 |
+| Restart            | `R`                 |
+| Next (Tutorial)    | `N`                 |
+| Toggle Textures    | `T`                 |
+| Toggle Hitboxes    | `C`                 |
+| Toggle Info        | `H`                 |
 
 ### Gameplay Loop
 
@@ -188,12 +187,12 @@ Tower-of-the-Forest/
 
 ## 👥 Team
 
-- Pablo Lird
-- Fernando Rojas
-- Aristides Gernhofer
-- Alvaro Lial
-- Tamara Barrios
+* Pablo Lird
+* Fernando Rojas
+* Aristides Gernhofer
+* Alvaro Lial
+* Tamara Barrios
 
 ---
 
-_Built as a Data Structures course final project._
+*Built as a Data Structures course final project.*

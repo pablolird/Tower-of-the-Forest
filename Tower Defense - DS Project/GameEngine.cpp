@@ -12,7 +12,7 @@ void GameEngine::init(const std::string& path) {
 	m_assets.loadFromFile(path);
 
 	// Create a window with the specified resolution
-	m_window.create(sf::VideoMode(1792, 896), "Tower Defense", sf::Style::Close);
+	m_window.create(sf::VideoMode(1792, 896), "Tower Defense", sf::Style::Default);
 	// Set vertical sync for better performance
 	m_window.setVerticalSyncEnabled(true);
 	//m_window.setFramerateLimit(60);
@@ -41,6 +41,9 @@ void GameEngine::sUserInput() {
 		}
 		if (event.type == sf::Event::Closed) {
 			quit();
+		}
+		if (event.type == sf::Event::Resized) {
+			m_window.setView(sf::View(sf::FloatRect(0.f, 0.f, 1792.f, 896.f)));
 		}
 		if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased) {
 			// if the current scene does not have an action associated with this key, skip this event
