@@ -17,7 +17,11 @@
 
 ---
 
-<!-- Insert gameplay gif/video here — recommended: a clip showing enemies marching down the path while towers attack them, transitioning from day to night -->
+
+
+https://github.com/user-attachments/assets/f0f318f4-dc13-45cb-a4fa-483072e47ab1
+
+
 
 ## 🌟 Features
 
@@ -38,21 +42,13 @@
 
 ## 🗺️ Scenes
 
-### 🏠 Main Menu
-
-<!-- Insert screenshot of the main menu with the forest background -->
-
 ### ⚔️ Gameplay
 
-<!-- Insert screenshot or gif of an active wave — towers firing, enemies on the path, shop visible at the bottom -->
-
-### 🌙 Night Mode
-
-<!-- Insert screenshot showing the night filter effect during gameplay -->
+https://github.com/user-attachments/assets/df628d75-ec2b-4f04-9a59-4637eb9af377
 
 ### 📖 Tutorial
 
-<!-- Insert screenshot of the tutorial slide overlay -->
+<img width="1792" height="896" alt="tuto4" src="https://github.com/user-attachments/assets/01fe5d9d-74d2-49b1-ac61-0dcfaff6dc8f" />
 
 ---
 
