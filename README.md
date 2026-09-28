@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="2430" height="1604" alt="image" src="https://github.com/user-attachments/assets/f105dfc8-46b7-4696-bb84-b7bd14e718d5" />
+  <img width="2430" height="1604" alt="Tower of the Forest title screen" src="https://github.com/user-attachments/assets/f105dfc8-46b7-4696-bb84-b7bd14e718d5" />
 </p>
 
 ![GitHub Created At](https://img.shields.io/github/created-at/pablolird/Tower-of-the-Forest)
@@ -13,183 +13,142 @@
 
 # 🌲 Tower of the Forest — Tower Defense
 
-**Tower of the Forest** is a 2D tower defense game built in C++ using SFML. Place and upgrade towers, set barricades, unleash powerful attacks, and survive increasingly relentless waves of forest creatures — goblins, wolves, bees, and slimes — through a dynamic day/night cycle.
+**Tower of the Forest** is a 2D tower defense game written in C++ with SFML. Build and upgrade archer towers, block the roads with barricades and call down lightning while goblins, wolves, bees and slimes march on your tower from three directions. It runs on an Entity-Component-System engine, and a quadtree handles tower targeting and collision queries.
 
 ---
-
-
 
 https://github.com/user-attachments/assets/f0f318f4-dc13-45cb-a4fa-483072e47ab1
 
-
-
 ## 🌟 Features
 
-- **Multiple Tower Types**: Place and upgrade three distinct towers — Target, Area, and Freeze — each with unique attack styles and upgrade paths.
-- **Special Attacks**: Deploy powerful limited-use attacks like Lightning Strikes and Ice/Wood Spikes to turn the tide.
-- **Barricades**: Place defensive structures to block and slow down enemy advances.
-- **Enemy Variety**: Face four enemy types — Goblins, Wolves, Bees, and Slimes — each with their own animations and behavior.
-- **Day/Night Cycle**: A dynamic lighting system shifts the atmosphere as waves progress.
-- **Shop System**: Spend coins earned from defeating enemies to purchase towers and upgrades.
-- **Upgrade System**: Evolve your towers through multiple upgrade levels to boost their effectiveness.
-- **Tutorial**: An in-game multi-slide tutorial to get new players up to speed.
-- **Settings & Credits**: Dedicated scenes for audio settings and team credits.
-- **Sound Design**: Background music and sound effects for menus, gameplay, and interactions.
-- **Entity-Component-System Architecture**: Clean, data-driven ECS design powering all game entities.
-- **Quadtree Collision Detection**: Optimized spatial partitioning for efficient collision checks.
+- **Three tower types:** Target (single-target archers), Area (wood spikes that hit every enemy on them) and Freeze (ice spikes that slow enemies). Each can be upgraded to level 3.
+- **Barricades:** block the road until enemies break through. Bees fly over them.
+- **Lightning strike:** an expensive shop item that damages everything on a chosen road tile.
+- **Upgradable main tower:** up to level 4, each level adding 200 max health. A heal item restores 50 health.
+- **Four enemy types**, with tougher boss variants once the waves peak.
+- **Rising difficulty:** the spawn interval shrinks every second, from one enemy every 150 frames to one every 4 frames.
+- **Day/night cycle**, drifting clouds, music and sound effects.
+- **Menu, settings, credits**, pause and restart, and an 8-slide tutorial.
 
----
-
-## 🗺️ Scenes
-
-### ⚔️ Gameplay
+## ⚔️ Gameplay
 
 https://github.com/user-attachments/assets/df628d75-ec2b-4f04-9a59-4637eb9af377
 
 ### 📖 Tutorial
 
-<img width="1792" height="896" alt="tuto4" src="https://github.com/user-attachments/assets/01fe5d9d-74d2-49b1-ac61-0dcfaff6dc8f" />
+<img width="1792" height="896" alt="Tutorial slide" src="https://github.com/user-attachments/assets/01fe5d9d-74d2-49b1-ac61-0dcfaff6dc8f" />
 
 ---
 
-## 🧟 Enemy Types
+## 🎮 Controls
 
-| Enemy  | Movement | Notes                     |
-| ------ | -------- | ------------------------- |
-| Goblin | Walking  | Basic melee attacker      |
-| Wolf   | Walking  | Fast and aggressive       |
-| Bee    | Flying   | Bypasses ground obstacles |
-| Slime  | Walking  | Slow but resilient        |
-
----
-
-## 🏰 Tower Types
-
-| Tower        | Attack Style         | Upgrade Levels |
-| ------------ | -------------------- | -------------- |
-| Target Tower | Single-target archer | Up to 4        |
-| Area Tower   | Multi-target archer  | Up to 4        |
-| Freeze Tower | Slows enemies        | Up to 4        |
+| Action | Input |
+| --- | --- |
+| Menu navigation | `W` / `S` or `↑` / `↓`, `Enter` |
+| Buy an item / place it | Left click on the shop, then on a grass tile (towers) or road tile (barricades, lightning) |
+| Cancel the selected item | Right click |
+| Upgrade a tower or the main tower | Right click on it while hovering |
+| Pause / help | `P` / `H` (`N` for the next tutorial slide) |
+| Restart | `R` (when paused or defeated) |
+| Back to menu | `Esc` |
+| Debug: toggle textures / hitboxes | `T` / `C` |
 
 ---
 
-## 🛠️ Technologies Used
+## ⚡ Performance: fixing the quadtree
 
-- **Language**: C++
-- **Graphics & Windowing**: SFML (Simple and Fast Multimedia Library)
-- **IDE**: Visual Studio
-- **Architecture**: Entity-Component-System (ECS)
-- **Collision**: Quadtree spatial partitioning
-- **Asset Loading**: Custom `assets.txt` manifest
+The game used a quadtree for tower range searches and collision checks, but it had a bug. `insert()` only split a node when that node already had children, so no node ever split. Every entity went into the root, and every "quadtree" query was really a linear scan. Once splitting worked, the original design would also have returned entities that cross a boundary more than once, split without limit when enemies piled up, and leaked child nodes.
+
+The [rewrite](src/Quadtree.cpp):
+
+- stores each entity once, in the deepest node that fully contains it,
+- caps the depth,
+- keeps off-screen enemies in the root, so queries still find them,
+- returns results in the same order as the old scan, so towers pick the same targets as before.
+
+Profiling then showed the 16 towers were going through about 37,000 query hits per frame. So towers now skip the search while they already have a target, and stop at the first enemy in range.
+
+**In-game stress test.** Every grass and road slot is filled, and N invulnerable enemies walk the roads. Each run is 600 frames with vsync off, and the table shows the median of 3 runs. Every build ends with the same enemy-state checksum, so gameplay is unchanged.
+
+| Enemies | Simulation time per frame, original → fixed | Frame rate, original → fixed |
+| ---: | :---: | :---: |
+| 1,000 | 0.83 → 0.34 ms (**2.4×**) | 430 → 568 FPS |
+| 4,000 | 3.14 → 1.27 ms (**2.5×**) | 124 → 176 FPS |
+| 8,000 | 6.63 → 2.65 ms (**2.5×**) | 61 → 89 FPS |
+| 16,000 | 19.8 → 5.9 ms (**3.3×**) | 28 → 45 FPS |
+
+Rendering one draw call per sprite is now most of the frame time, so frame rate improves less than simulation time.
+
+**Headless query benchmark** (`make bench`, which rebuilds the index and runs the queries every frame):
+
+| Workload | Entities | Original tree | Fixed tree | Speedup |
+| --- | ---: | ---: | ---: | ---: |
+| The game's queries (16 tower ranges, 16 collision boxes) | 5,000 | 2.77 ms | 1.32 ms | 2.1× |
+| All-pairs collision (every entity queries its surroundings) | 5,000 | 339 ms | 33.6 ms | 10.1× |
+
+Tower ranges cover about 18% of the map each, so the game's own queries return many hits and gain less than neighbour-sized queries do. Full data and the test machine are in [`src/bench/results/`](src/bench/results/).
+
+`make test` runs randomized checks that every query returns exactly what a linear scan returns. It also covers subdivision, the depth limit, entities that cross boundaries and off-screen entities.
 
 ---
 
-## 📂 Project Structure
+## 🛠️ Architecture
+
+- **Entities and components:** an `Entity` holds one slot per component type in a `std::tuple` (`CTransform`, `CAnimation`, `CHealth`, `CRange`, …). Systems check `hasComponent<T>()` and read the data directly.
+- **Entity lifetime:** `EntityManager` adds new entities at the start of the next frame and removes destroyed ones in one erase-remove pass. This keeps systems from modifying a list while looping over it. Entities are also indexed by tag (`enemy`, `archer`, `barricade`, …).
+- **Spatial index:** after that update, `EntityManager` rebuilds the quadtree over sprite bounds once per frame. `queryRange()` serves tower targeting and collisions with the main tower and barricades.
+- **Frame loop (`Scene_Play::update`):** entity update → health → collision → movement and targeting → spawning → placement → animation → info panel → upgrades → render.
+- **Scenes and input:** `GameEngine` owns the window and the assets and switches between `Scene` subclasses (menu, play, settings, credits). Keys map to named actions, so scenes never read raw input.
+- **Assets:** `assets.txt` lists every texture, animation, font, sound and music track, and `Assets` loads them at startup.
 
 ```
-Tower-of-the-Forest/
-│
-├── Main.cpp                   # Entry point
-├── GameEngine.cpp/.h          # Core game loop and scene management
-├── Scene.cpp/.h               # Base scene class
-├── Scene_Play.cpp/.h          # Main gameplay scene
-├── Scene_Menu.cpp/.h          # Main menu scene
-├── Scene_Settings.cpp/.h      # Settings scene
-├── Scene_Credits.cpp/.h       # Credits scene
-│
-├── Entity.cpp/.h              # ECS entity
-├── EntityManager.cpp/.h       # Entity lifecycle management
-├── Components.h               # All ECS components (CTransform, CHealth, etc.)
-├── Animation.cpp/.h           # Sprite animation system
-├── Physics.cpp/.h             # Collision detection
-├── Quadtree.cpp/.h            # Quadtree spatial partitioning
-├── Action.cpp/.h              # Input action abstraction
-├── Vec2.cpp/.h                # 2D vector math
-│
-├── Assets.cpp/.h              # Asset manager (textures, fonts, sounds)
-├── assets.txt                 # Asset manifest (fonts, textures, animations, music)
-│
-├── Assets/                    # Game assets
-│   ├── Enemies/               # Goblin, Wolf, Bee, Slime sprites
-│   ├── Tower/                 # Main tower idle & upgrade frames
-│   ├── Attack/                # Archer towers & special attack sprites
-│   ├── Defense/               # Barricade sprites
-│   ├── Shop/                  # Shop UI icons
-│   ├── Tutorial/              # Tutorial slide images
-│   ├── Fonts/                 # Retro bitmap font
-│   ├── Musics/                # Background music tracks
-│   └── SoundEffects/          # UI sound effects
-│
-├── level1.txt                 # Level layout definitions
-├── level2.txt
-└── level3.txt
+src/
+├── Main.cpp · GameEngine.{h,cpp} · Scene.{h,cpp}
+├── Scene_Play / Scene_Menu / Scene_Settings / Scene_Credits
+├── EntityManager.{h,cpp}   # deferred add/remove, tag index, spatial queries
+├── Entity.{h,cpp} · Components.h
+├── Quadtree.{h,cpp}        # spatial index
+├── Physics.{h,cpp}         # AABB overlap (current and previous frame)
+├── Animation · Assets · Vec2 · Action
+├── StressTest.h            # --stress benchmark mode
+├── tests/test_quadtree.cpp
+├── bench/                  # stress.sh, bench_quadtree.cpp, results/
+├── Assets/ · assets.txt
+└── Makefile · TowerOfTheForest.vcxproj · Doxyfile
 ```
 
 ---
 
-## 🚀 Setup and Installation
+## 🚀 Setup and Build
 
-### Prerequisites
+**Requirements:** a C++17 compiler and **SFML 2.6**. The code uses the SFML 2 API and does not compile against SFML 3.
 
-- [SFML 2.x](https://www.sfml-dev.org/download.php) installed and linked
-- Visual Studio (Windows) or a C++17-compatible compiler with SFML configured
+### macOS / Linux
 
-### Steps
+```bash
+# macOS (Homebrew's default `sfml` is version 3, so use sfml@2)
+brew install sfml@2
+# Ubuntu/Debian
+sudo apt install libsfml-dev
 
-1. **Clone the Repository:**
+git clone https://github.com/pablolird/Tower-of-the-Forest.git
+cd Tower-of-the-Forest/src
+make run      # build and play
+make test     # quadtree tests
+make bench    # headless query benchmark
+make stress   # in-game stress sweep (opens a window per run)
+```
 
-   ```bash
-   git clone https://github.com/pablolird/Tower-of-the-Forest.git
-   cd Tower-of-the-Forest
-   ```
+A single stress run: `./build/tower-of-the-forest --stress 8000 --frames 600 [--linear]`. To reproduce the "original" numbers, run `git checkout 19e3699` (the commit before the fix, which already has the stress harness) and run the same command.
 
-2. **Open the Project:**
-   - Open `Tower Defense - DS Project.vcxproj` in Visual Studio.
-   - Ensure SFML include and library paths are configured in the project properties.
+### Windows (Visual Studio)
 
-3. **Build and Run:**
-   - Set the build configuration to **Release** or **Debug**.
-   - Build the solution (`Ctrl+Shift+B`) and run (`F5`).
-   - The executable will look for `assets.txt` in the working directory to load all game assets.
+Open `TowerOfTheForest.sln` and set the SFML include and library paths in the project properties. Then build and run with `src/` as the working directory, so the game finds `assets.txt` and `Assets/`.
 
----
+### Known issue
 
-## 🎮 How to Play
-
-### Controls
-
-| Action          | Key / Input            |
-| --------------- | ---------------------- |
-| Navigate Menu   | `W` / `S` or `↑` / `↓` |
-| Confirm / Enter | `Enter`                |
-| Place / Select  | Left Click             |
-| Cancel / Back   | Right Click / `Esc`    |
-| Pause           | `P`                    |
-| Restart         | `R`                    |
-| Next (Tutorial) | `N`                    |
-| Toggle Textures | `T`                    |
-| Toggle Hitboxes | `C`                    |
-| Toggle Info     | `H`                    |
-
-### Gameplay Loop
-
-1. **Start a wave** — enemies spawn and march toward your base along the road.
-2. **Spend coins** from the shop to place towers on grass tiles.
-3. **Upgrade towers** to increase their damage, range, and fire rate.
-4. **Set barricades** on road tiles to obstruct enemy movement.
-5. **Use special attacks** (Lightning, Ice Spikes, Wood Spikes) at critical moments.
-6. **Survive** increasingly difficult waves across multiple levels.
+The window has a fixed size of 1792×896 and lays out the map from the window size. On displays smaller than that, the OS shrinks the window and the map layout breaks.
 
 ---
 
-## 👥 Team
-
-- Pablo Lird
-- Fernando Rojas
-- Aristides Gernhofer
-- Alvaro Lial
-- Tamara Barrios
-
----
-
-_Built as a Data Structures course final project._
+_Built by a team of five for a Data Structures course at UPTP (Universidad Politécnica Taiwán-Paraguay), Jun–Jul 2024._
