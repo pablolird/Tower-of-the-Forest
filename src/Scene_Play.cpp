@@ -18,9 +18,13 @@
 Scene_Play::Scene_Play(GameEngine* gameEngine) 
 	: Scene(gameEngine)
 {
-	srand(time(NULL));
+	auto& stress = m_game->stressConfig();
+	m_stress = stress.enabled();
+	// A fixed seed makes stress runs repeatable, so both spatial-index modes simulate the same game
+	srand(m_stress ? stress.seed : time(NULL));
+	m_entityManager.setUseQuadtree(stress.quadtree);
 	init();
-
+	if (m_stress) setupStressTest();
 }
 
 void Scene_Play::generateRoadRectangles() {
@@ -177,20 +181,113 @@ void Scene_Play::sDoAction(const Action& action) {
 }
 
 void Scene_Play::update() {
+	sf::Clock frameClock;
 
 	m_entityManager.update();
 	if (!m_paused) {
 		sHealth();
 		sCollision();
 		sMovement();
-		sEnemySpawner();
+		if (!m_stress) sEnemySpawner(); // stress mode keeps a fixed enemy count
 		sPlacement();
 		sAnimation();
 		sInfo();
 		sUpgrade();
 	}
+	double simMs = frameClock.restart().asMicroseconds() / 1000.0;
 	sRender();
+	double renderMs = frameClock.getElapsedTime().asMicroseconds() / 1000.0;
+	if (m_stress) recordStressFrame(simMs, renderMs);
 	m_currentFrame++;
+}
+
+void Scene_Play::setupStressTest() {
+	const float big = 1e12f; // nothing dies, so the entity count stays fixed for the whole run
+	m_player->addComponent<CHealth>(big);
+
+	// A tower on every grass slot, cycling through the three types
+	const char* types[] = { "target", "area", "freeze" };
+	const char* idle[] = { "D_archerTargetIdle", "D_archerAreaIdle", "D_archerFreezeIdle" };
+	const char* base[] = { "targetTower2", "areaTower2", "freezeTower2" };
+	for (size_t i = 0; i < m_grassRectanglesGrid.size(); ++i) {
+		auto& rect = m_grassRectanglesGrid[i];
+		Vec2 pos = { rect.getPosition().x + rect.getSize().x / 2.f, rect.getPosition().y + rect.getSize().y / 2.f + 15.f };
+		int t = i % 3;
+
+		auto archer = m_entityManager.addEntity("archer");
+		archer->addComponent<CType>(types[t]);
+		archer->addComponent<CAnimation>(m_game->getAssets().getAnimation(idle[t]), false);
+		archer->addComponent<CTransform>(pos);
+		archer->addComponent<CRange>(265);
+		archer->addComponent<CState>("idle", "vertical");
+		if (t == 0) archer->addComponent<CAttack>(18);
+		else archer->addComponent<CDelay>(0, 200);
+		if (t == 1) archer->addComponent<CAttack>(15);
+
+		auto defense = m_entityManager.addEntity("defense");
+		defense->addComponent<CTransform>(pos);
+		defense->addComponent<CAnimation>(m_game->getAssets().getAnimation(base[t]), false);
+		defense->getComponent<CAnimation>().animation.getSprite().setPosition(pos.x, pos.y);
+		defense->addComponent<CLevel>(3);
+		defense->addComponent<CType>(types[t]);
+		defense->addComponent<CState>("idle", "default");
+		defense->addComponent<CFocus>(archer);
+		m_usedGrassRectanglesIndex[i] = true;
+	}
+
+	// A barricade on every road slot (same line numbering as sPlacement)
+	for (size_t i = 0; i < m_roadRectanglesGrid.size(); ++i) {
+		auto& rect = m_roadRectanglesGrid[i];
+		Vec2 pos = { rect.getPosition().x + rect.getSize().x / 2.f, rect.getPosition().y + rect.getSize().y / 2.f };
+		spawnBarricade(pos, i < 6 ? 1 : (i < 12 ? 3 : 2), i);
+		m_usedRoadRectanglesIndex[i] = true;
+	}
+
+	// N enemies spread along the three roads instead of all at the spawn points
+	float w = m_game->window().getSize().x, h = m_game->window().getSize().y;
+	for (int i = 0; i < m_game->stressConfig().enemies; ++i) {
+		size_t line = i % 3 + 1;
+		auto e = sSpawnEnemy(line);
+		auto& pos = e->getComponent<CTransform>().pos;
+		float t = (rand() % 1000) / 1000.f;
+		if (line == 1) pos.x = -50 + t * (w / 2.f - 150);
+		else if (line == 2) pos.y = -50 + t * (h / 2.f - 150);
+		else pos.x = w / 2.f + 150 + t * (w / 2.f - 100);
+		e->getComponent<CTransform>().prevPos = pos;
+		e->getComponent<CAnimation>().animation.getSprite().setPosition(pos.x, pos.y);
+		e->addComponent<CHealth>(big);
+	}
+	m_entityManager.update();
+	for (auto& b : m_entityManager.getEntities("barricade")) b->addComponent<CHealth>(big);
+}
+
+void Scene_Play::recordStressFrame(double simMs, double renderMs) {
+	auto& cfg = m_game->stressConfig();
+	m_stressFrame++;
+	if (m_stressFrame <= (size_t)cfg.warmup) return;
+	m_stressSimMs += simMs;
+	m_stressRenderMs += renderMs;
+	if (m_stressFrame < (size_t)(cfg.warmup + cfg.frames)) return;
+
+	// Checksum of enemy state: identical across index modes means the fix didn't change gameplay
+	double checksum = 0;
+	for (auto& e : m_entityManager.getEntities()) {
+		if (e->tag() != "enemy" && e->tag() != "enemyBoss") continue;
+		auto& p = e->getComponent<CTransform>().pos;
+		checksum += p.x * 0.5 + p.y * 0.25 + (1e12 - e->getComponent<CHealth>().health) * 1e-3;
+	}
+	double sim = m_stressSimMs / cfg.frames, render = m_stressRenderMs / cfg.frames;
+	printf("%s,%d,%zu,%d,%.3f,%.3f,%.3f,%.1f,%.3f\n", cfg.quadtree ? "quadtree" : "linear", cfg.enemies,
+		m_entityManager.getEntities().size(), cfg.frames, sim, render, sim + render, 1000.0 / (sim + render), checksum);
+	fflush(stdout);
+	if (cfg.screenshot) {
+		auto& window = m_game->window();
+		sf::Texture frame;
+		frame.create(window.getSize().x, window.getSize().y);
+		frame.update(window);
+		frame.copyToImage().saveToFile(cfg.screenshot);
+	}
+	m_game->quit();
 }
 
 void Scene_Play::spawnPlayer() {
@@ -1387,7 +1484,7 @@ void Scene_Play::sEnemySpawner() {
 	}*/
 }
 
-void Scene_Play::sSpawnEnemy(size_t line) {
+std::shared_ptr<Entity> Scene_Play::sSpawnEnemy(size_t line) {
 	// create enemy with "enemy" tag
 
 	std::string tag;
@@ -1545,6 +1642,7 @@ void Scene_Play::sSpawnEnemy(size_t line) {
 	entity->addComponent<CHealth>(health);
 	entity->addComponent<CAttack>(damage);
 	entity->addComponent<CFocus>();
+	return entity;
 }
 
 void Scene_Play::sShop() {

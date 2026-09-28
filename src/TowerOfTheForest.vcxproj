@@ -141,6 +141,7 @@
     <ClInclude Include="Scene_Menu.h" />
     <ClInclude Include="Scene_Play.h" />
     <ClInclude Include="Scene_Settings.h" />
+    <ClInclude Include="StressTest.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
 #include <string>
 
 #include <iostream>
+#include "StressTest.h"
 
 class Scene;
 
@@ -22,6 +23,7 @@ protected:
 
 	float m_volume = 50;
 	bool m_music = false;
+	StressConfig m_stress;
 
 	// Should load the assets
 	void init(const std::string& path);
@@ -29,9 +31,9 @@ protected:
 
 	void sUserInput();
 	std::shared_ptr<Scene> currentScene();
-	sf::Music* m_currentMusic; // Pointer to the current music track
+	sf::Music* m_currentMusic = nullptr; // Pointer to the current music track
 public:
-	GameEngine(const std::string& path);
+	GameEngine(const std::string& path, const StressConfig& stress = StressConfig());
 
 	// Change scene  
 	void changeScene(const std::string &, std::shared_ptr<Scene> scene, bool endCurrentScene);
@@ -45,6 +47,7 @@ public:
 	sf::RenderWindow& window();
 	// const Assets & assets() const;
 	bool isRunning();
+	const StressConfig& stressConfig() const;
 
 	/// methods to get configurations
 	float getVolume();

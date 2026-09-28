@@ -51,5 +51,19 @@ EntityVec& EntityManager::getEntities(const std::string& tag) {
 }
 
 EntityVec EntityManager::queryRange(sf::FloatRect range) {
-    return quadtree.query(range); // Query entities within a range using quadtree
+    if (m_useQuadtree) {
+        return quadtree.query(range); // Query entities within a range using quadtree
+    }
+
+    EntityVec found;
+    for (auto& e : m_entities) {
+        if (range.intersects(e->getComponent<CAnimation>().animation.getSprite().getGlobalBounds())) {
+            found.push_back(e);
+        }
+    }
+    return found;
+}
+
+void EntityManager::setUseQuadtree(bool use) {
+    m_useQuadtree = use;
 }

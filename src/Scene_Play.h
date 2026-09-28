@@ -60,6 +60,14 @@ protected:
 	sf::Sprite m_pauseBackground;
 	std::vector<sf::Sprite> tutorials; 
 
+	// Stress-test mode (see StressTest.h)
+	bool m_stress = false;
+	size_t m_stressFrame = 0;
+	double m_stressSimMs = 0;
+	double m_stressRenderMs = 0;
+	void setupStressTest();
+	void recordStressFrame(double simMs, double renderMs);
+
 public:
 	Scene_Play(GameEngine* gameEngine);
 
@@ -74,7 +82,7 @@ public:
 	void sAnimation();
 	void sMovement();
 	void sEnemySpawner();
-	void sSpawnEnemy(size_t line);
+	std::shared_ptr<Entity> sSpawnEnemy(size_t line);
 	void sCollision();
 	void sRender();
 	void sShop();

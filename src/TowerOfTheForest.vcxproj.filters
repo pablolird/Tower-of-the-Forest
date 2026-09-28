@@ -57,6 +57,9 @@
     <ClInclude Include="Scene_Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StressTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Scene_Credits.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -14,6 +14,7 @@ class EntityManager {
     EntityMap m_entityMap;
     size_t m_totalEntities = 0;
     Quadtree quadtree; // Add the quadtree member
+    bool m_useQuadtree = true;
 
     void removeDeadEntities(EntityVec& vec);
 public:
@@ -25,4 +26,5 @@ public:
     EntityVec& getEntities();
     EntityVec& getEntities(const std::string& tag);
     EntityVec queryRange(sf::FloatRect range); // Method to query entities within a range
+    void setUseQuadtree(bool use); // false = linear scan, used to benchmark the quadtree
 };

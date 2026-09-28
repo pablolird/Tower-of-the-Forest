@@ -3,7 +3,7 @@
 #include "GameEngine.h"
 #include "Scene_Play.h"
 
-GameEngine::GameEngine(const std::string& path) {
+GameEngine::GameEngine(const std::string& path, const StressConfig& stress) : m_stress(stress) {
 	// Calling the init function
 	init(path);
 }
@@ -16,6 +16,13 @@ void GameEngine::init(const std::string& path) {
 	// Set vertical sync for better performance
 	m_window.setVerticalSyncEnabled(true);
 	//m_window.setFramerateLimit(60);
+
+	if (m_stress.enabled()) {
+		// Uncapped frame rate so the timings measure the game, not the monitor
+		m_window.setVerticalSyncEnabled(false);
+		changeScene("PLAY", std::make_shared<Scene_Play>(this), false);
+		return;
+	}
 	changeScene("MENU", std::make_shared<Scene_Menu>(this), false);
 }
 
@@ -109,6 +116,10 @@ void GameEngine::changeScene(const std::string & sceneName, std::shared_ptr<Scen
 
 sf::RenderWindow& GameEngine::window() {
 	return m_window;
+}
+
+const StressConfig& GameEngine::stressConfig() const {
+	return m_stress;
 }
 
 // const Assets & assets() const;
