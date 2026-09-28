@@ -1,5 +1,6 @@
 #include "EntityManager.h"
 #include "Entity.h"
+#include <algorithm>
 
 void EntityManager::init() {
     // Initialization code, if any
@@ -19,15 +20,16 @@ void EntityManager::update() {
     for (auto e : m_toAdd) {
         m_entities.push_back(e);
         m_entityMap[e->tag()].push_back(e);
-        quadtree.insert(e); // Insert entity into quadtree
     }
     m_toAdd.clear();
 
-    // Remove dead entities from main vector and quadtree
+    // Remove dead entities, then rebuild the quadtree once from the active ones
     removeDeadEntities(m_entities);
-    quadtree.clear(); // Clear quadtree and reinsert active entities
-    for (auto& entity : m_entities) {
-        quadtree.insert(entity);
+    if (m_useQuadtree) {
+        quadtree.clear();
+        for (auto& entity : m_entities) {
+            quadtree.insert(entity);
+        }
     }
 
     // Remove dead entities from the entity map

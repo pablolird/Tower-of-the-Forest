@@ -1395,6 +1395,9 @@ void Scene_Play::sMovement() {
 
 	// Update archers and check for enemies in range
 	for (auto& archer : m_entityManager.getEntities("archer")) {
+		// An archer fires at one enemy per attack animation; while it has a target there is nothing to look up
+		if (archer->getComponent<CRange>().target) continue;
+
 		auto& archer_pos = archer->getComponent<CTransform>().pos;
 		auto r = archer->getComponent<CRange>().radius;
 
@@ -1440,6 +1443,7 @@ void Scene_Play::sMovement() {
 				}
 				archer->getComponent<CRange>().target = true;
 				archer->getComponent<CState>().state = "attack";
+				break; // results are in entity order, so this is the same enemy the full scan picked
 			}
 		}
 	}

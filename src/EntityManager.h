@@ -13,7 +13,7 @@ class EntityManager {
     EntityVec m_toAdd;
     EntityMap m_entityMap;
     size_t m_totalEntities = 0;
-    Quadtree quadtree; // Add the quadtree member
+    Quadtree quadtree; // Spatial index over all active entities, rebuilt every frame
     bool m_useQuadtree = true;
 
     void removeDeadEntities(EntityVec& vec);

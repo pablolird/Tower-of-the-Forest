@@ -1,7 +1,7 @@
 #include "Physics.h"
 #include "Components.h"
 
-Vec2 GetOverlap(std::shared_ptr<Entity> a, std::shared_ptr<Entity> b) {
+Vec2 GetOverlap(const std::shared_ptr<Entity>& a, const std::shared_ptr<Entity>& b) {
 	auto& bb_player = a->getComponent<CBoundingBox>();
 	auto& player = a->getComponent<CTransform>();
 	auto& bb_tile = b->getComponent<CBoundingBox>();
@@ -14,7 +14,7 @@ Vec2 GetOverlap(std::shared_ptr<Entity> a, std::shared_ptr<Entity> b) {
 	return Vec2(ox, oy);
 }
 
-Vec2 GetPreviousOverlap(std::shared_ptr<Entity> a, std::shared_ptr<Entity> b) {
+Vec2 GetPreviousOverlap(const std::shared_ptr<Entity>& a, const std::shared_ptr<Entity>& b) {
 	auto& bb_player = a->getComponent<CBoundingBox>();
 	auto& player = a->getComponent<CTransform>();
 	auto& bb_tile = b->getComponent<CBoundingBox>();
