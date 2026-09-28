@@ -1,8 +1,0 @@
-<map id="CInput" name="CInput">
-<area shape="rect" id="Node000001" title=" " alt="" coords="19,257,69,327"/>
-<area shape="rect" id="Node000002" href="$class_component.html" title=" " alt="" coords="89,139,167,208"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,221,70,259,66,256,93,218"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,43,75"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="21,74,15,137,14,172,18,208,26,241,21,242,13,208,9,173,9,136,15,74"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="45,63,93,124,89,128,41,66"/>
-</map>
